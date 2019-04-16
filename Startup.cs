@@ -10,8 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using DataPassingBot.Bots;
 using DataPassingBot.Dialogs.Root;
 using DataPassingBot.Helpers;
-using DataPassingBot.Interfaces;
-using DataPassingBot.Services;
 
 namespace DataPassingBot
 {
@@ -20,8 +18,6 @@ namespace DataPassingBot
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1);
-
-            services.AddSingleton<IBotServices, BotServices>();
 
             services.AddSingleton<IBotFrameworkHttpAdapter, BotFrameworkHttpAdapter>();
 

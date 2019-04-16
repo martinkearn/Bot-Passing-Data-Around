@@ -3,7 +3,6 @@
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
-using DataPassingBot.Dialogs.CancelAndHelp;
 using DataPassingBot.Dialogs.Country.Resources;
 using DataPassingBot.Models;
 using System;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataPassingBot.Dialogs.Country
 {
-    public class CountryDialog : CancelAndHelpDialog
+    public class CountryDialog : ComponentDialog
     {
         private const string CountryPromptName = "countryprompt";
         private const string CountryStepKey = "country";

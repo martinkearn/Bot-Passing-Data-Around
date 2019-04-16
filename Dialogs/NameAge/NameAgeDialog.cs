@@ -3,7 +3,6 @@
 
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
-using DataPassingBot.Dialogs.CancelAndHelp;
 using DataPassingBot.Dialogs.NameAge.Resources;
 using DataPassingBot.Models;
 using System;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataPassingBot.Dialogs.NameAge
 {
-    public class NameAgeDialog : CancelAndHelpDialog
+    public class NameAgeDialog : ComponentDialog
     {
         private const string NamePromptName = "nameprompt";
         private const string AgePromptName = "ageprompt";

@@ -7,7 +7,6 @@ using Microsoft.Bot.Builder.Dialogs.Choices;
 using DataPassingBot.Dialogs.Country;
 using DataPassingBot.Dialogs.NameAge;
 using DataPassingBot.Dialogs.Root.Resources;
-using DataPassingBot.Interfaces;
 using DataPassingBot.Resources;
 using System.Collections.Generic;
 using System.Threading;
@@ -18,17 +17,13 @@ namespace DataPassingBot.Dialogs.Root
     public class RootDialog : ComponentDialog
     {
         private const string ChoicePromptName = "choiceprompt";
-        private readonly IBotServices _botServices;
 
-        public RootDialog(IBotServices botServices, UserState userState) : base(nameof(RootDialog))
+        public RootDialog(UserState userState) : base(nameof(RootDialog))
         {
-            _botServices = botServices;
-
             // Define the steps of the waterfall dialog and add it to the set.
             var waterfallSteps = new WaterfallStep[]
             {
                 SayHiAsync,
-                GetIntentAsync,
                 PromptForFlowAsync,
                 HandleFlowResultAsync,
                 EndAsync,
@@ -50,47 +45,6 @@ namespace DataPassingBot.Dialogs.Root
             var utterance = (string)stepContext.Options;
 
             await stepContext.Context.SendActivityAsync($"{RootStrings.Welcome}", cancellationToken: cancellationToken);
-
-            return await stepContext.NextAsync(cancellationToken: cancellationToken);
-        }
-
-        private async Task<DialogTurnResult> GetIntentAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            #region Dispatch example
-            //// You can delete this whole 'Dispatch example' region if you are not using Dispatch, Luis or QNA. (You should also delete Models/LuisModel.cs and Dialogs/Luis/LuisDialog.cs if you are not using Luis)
-            //// This is a sample for calling Dispatch accross Luis and QNA via BotServices for getting top level intent and answering directly if QNA.
-            //var dispatchResults = await _botServices.Dispatch.RecognizeAsync(stepContext.Context, cancellationToken);
-            //var dispatchTopScoringIntent = dispatchResults?.GetTopScoringIntent();
-            //var dispatchTopIntent = dispatchTopScoringIntent.Value.intent;
-            //switch (dispatchTopIntent)
-            //{
-            //    case "luismodelname":
-            //        // Call the main luis model to get detailed intent and entity results. Dispatch will only provide top level model
-            //        var luisResultModel = await _botServices.MainLuis.RecognizeAsync<LuisModel>(stepContext.Context, CancellationToken.None);
-            //        // Start a new dialog here and can pass the luisResultModel in to process the luis result 
-            //        return await stepContext.BeginDialogAsync(nameof(LuisDialog), luisResultModel);
-
-            //    case "qnamodelname":
-            //        var results = await _botServices.MainQnA.GetAnswersAsync(stepContext.Context);
-            //        if (results.Any())
-            //        {
-            //            await stepContext.Context.SendActivityAsync(results.First().Answer, cancellationToken: cancellationToken);
-            //        }
-            //        else
-            //        {
-            //            await stepContext.Context.SendActivityAsync(RootStrings.NoQNAAnswer);
-            //        }
-            //        break;
-
-            //    case "None":
-            //        await stepContext.Context.SendActivityAsync(RootStrings.NoIntent);
-            //        break;
-
-            //    default:
-            //        await stepContext.Context.SendActivityAsync(RootStrings.NoIntent);
-            //        break;
-            //}
-            #endregion
 
             return await stepContext.NextAsync(cancellationToken: cancellationToken);
         }
